@@ -2,9 +2,15 @@
 #ifndef MATALA3_PROACTOR_H
 #define MATALA3_PROACTOR_H
 
-void *handle_client(void *p_client_socket);
-void send_to_all_clients(int sender_socket, char *message);
-void *handle_client(void *p_client_socket);
-void createThreadForClient(int socket_descriptor);
+#include <pthread.h>
+
+typedef void *(*ClientHandler)(void * arg);
+
+void Proactor(int server_socket ,ClientHandler clientHandler);
+
+int *clients = NULL;
+int num_clients = 0;
+int capacity = 0;
+
 
 #endif //MATALA3_PROACTOR_H
